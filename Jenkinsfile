@@ -2,13 +2,14 @@ pipeline {
     agent any
     environment {
         AWS_REGION = 'us-east-1' 
-        ECR_REPO = '311141522357.dkr.ecr.us-east-1.amazonaws.com/new-ecr'
+        ECR_REPO = '156041435862.dkr.ecr.us-east-1.amazonaws.com/java' 
+        IMAGE_NAME = 'java1-app-image'
     }
 
     stages {
         stage('Clone Repository') {
             steps {
-                git branch: 'main', url: 'https://github.com/Sandhyachinnu26/java-war-repo.git'
+                git branch: 'main', url: 'https://github.com/Rakesh-k-ops/java-war-repo.git'
             }
         }
 
@@ -20,9 +21,28 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh "docker build -t new-ecr ."
+                sh "docker build -t $IMAGE_NAME ."
             }
         }
+
+        stage('Push Image to AWS ECR') {
+            steps {
+                script {
+                    
+                    sh """
+                    aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REPO
+                    """
+
+                
+                    sh "docker tag $IMAGE_NAME:latest $ECR_REPO:latest"
+
+              
+                    sh "docker push $ECR_REPO:latest"
+                }
+            }
+        }
+    }
+}
 
         stage('Push Image to AWS ECR') {
             steps {
