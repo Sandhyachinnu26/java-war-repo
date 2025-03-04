@@ -3,7 +3,7 @@ pipeline {
     environment {
         AWS_REGION = 'us-east-1' 
         ECR_REPO = '311141522357.dkr.ecr.us-east-1.amazonaws.com/new-ecr' 
-        IMAGE_NAME = 'java1-app-image'
+        IMAGE_NAME = 'java-app'
     }
 
     stages {
