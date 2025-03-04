@@ -20,7 +20,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh "docker build -t java-app ."
+                sh "docker build -t new-ecr ."
             }
         }
 
