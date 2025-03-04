@@ -2,14 +2,14 @@ pipeline {
     agent any
     environment {
         AWS_REGION = 'us-east-1' 
-        ECR_REPO = '156041435862.dkr.ecr.us-east-1.amazonaws.com/java' 
-        IMAGE_NAME = 'java1-app-image'
+        ECR_REPO = '311141522357.dkr.ecr.us-east-1.amazonaws.com/new-ecr' 
+        IMAGE_NAME = 'java-app'
     }
 
     stages {
         stage('Clone Repository') {
             steps {
-                git branch: 'main', url: 'https://github.com/Rakesh-k-ops/java-war-repo.git'
+                git branch: 'main', url: 'https://github.com/Sandhyachinnu26/java-war-repo.git'
             }
         }
 
