@@ -20,7 +20,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh "docker build -t new-ecr ."
+                sh "docker build -t java-app ."
             }
         }
 
@@ -32,7 +32,7 @@ pipeline {
                     """
 
                     sh """
-                    sudo docker tag new-ecr:latest 311141522357.dkr.ecr.us-east-1.amazonaws.com/new-ecr:latest
+                    sudo docker tag java-app:latest 311141522357.dkr.ecr.us-east-1.amazonaws.com/new-ecr:latest
                     """
 
                     sh """
