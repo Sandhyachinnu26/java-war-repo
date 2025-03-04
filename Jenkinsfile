@@ -21,7 +21,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh "docker build -t ${IMAGE_NAME} ."
+                sh "docker build -t new-ecr ."
             }
         }
 
@@ -33,11 +33,11 @@ pipeline {
                     """
 
                     sh """
-                    docker tag ${IMAGE_NAME}:latest ${ECR_REPO}/${IMAGE_NAME}:latest
+                    docker tag new-ecr:latest 311141522357.dkr.ecr.us-east-1.amazonaws.com/new-ecr:latest
                     """
 
                     sh """
-                    docker push ${ECR_REPO}/${IMAGE_NAME}:latest
+                    docker push 311141522357.dkr.ecr.us-east-1.amazonaws.com/new-ecr:latest
                     """
                 }
             }
