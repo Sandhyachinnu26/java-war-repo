@@ -2,8 +2,7 @@ pipeline {
     agent any
     environment {
         AWS_REGION = 'us-east-1' 
-        ECR_REPO = '311141522357.dkr.ecr.us-east-1.amazonaws.com/new-ecr' 
-        IMAGE_NAME = 'java-app'
+        ECR_REPO = '311141522357.dkr.ecr.us-east-1.amazonaws.com/new-ecr'
     }
 
     stages {
@@ -21,28 +20,9 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh "docker build -t $IMAGE_NAME ."
+                sh "docker build -t new-ecr ."
             }
         }
-
-        stage('Push Image to AWS ECR') {
-            steps {
-                script {
-                    
-                    sh """
-                    aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REPO
-                    """
-
-                
-                    sh "docker tag $IMAGE_NAME:latest $ECR_REPO:latest"
-
-              
-                    sh "docker push $ECR_REPO:latest"
-                }
-            }
-        }
-    }
-}
 
         stage('Push Image to AWS ECR') {
             steps {
@@ -56,7 +36,7 @@ pipeline {
                     """
 
                     sh """
-                    sudo docker push 311141522357.dkr.ecr.us-east-1.amazonaws.com/new-ecr:latest
+                    docker push 311141522357.dkr.ecr.us-east-1.amazonaws.com/new-ecr:latest
                     """
                 }
             }
