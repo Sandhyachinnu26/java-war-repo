@@ -32,11 +32,11 @@ pipeline {
                     """
 
                     sh """
-                    docker tag java-app:latest 311141522357.dkr.ecr.us-east-1.amazonaws.com/new-ecr:latest
+                    sudo docker tag java-app:latest 311141522357.dkr.ecr.us-east-1.amazonaws.com/new-ecr:latest
                     """
 
                     sh """
-                    docker push 311141522357.dkr.ecr.us-east-1.amazonaws.com/new-ecr:latest
+                    sudo docker push 311141522357.dkr.ecr.us-east-1.amazonaws.com/new-ecr:latest
                     """
                 }
             }
