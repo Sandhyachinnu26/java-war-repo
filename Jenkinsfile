@@ -32,11 +32,11 @@ pipeline {
                     """
 
                     sh """
-                    sudo docker tag new-ecr:latest 311141522357.dkr.ecr.us-east-1.amazonaws.com/new-ecr:latest
+                    docker tag new-ecr:latest ${ECR_REPO}:latest
                     """
 
                     sh """
-                    docker push 311141522357.dkr.ecr.us-east-1.amazonaws.com/new-ecr:latest
+                    docker push ${ECR_REPO}:latest
                     """
                 }
             }
