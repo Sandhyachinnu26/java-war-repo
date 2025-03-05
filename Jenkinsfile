@@ -41,5 +41,28 @@ pipeline {
                 }
             }
         }
+        pipeline {
+    agent { label 'san' }
+
+    stages {
+        stage('Pull Image from ECR') {
+            steps {
+                sh '''
+                aws ecr get-login-password --region us-east-1 | sudo docker login --username AWS --password-stdin 311141522357.dkr.ecr.us-east-1.amazonaws.com
+                sudo docker pull 311141522357.dkr.ecr.us-east-1.amazonaws.com/new-ecr:latest
+                '''
+            }
+        }
+        stage('Restart Tomcat Container') {
+            steps {
+                sh '''
+                sudo docker stop tomcat_container || true
+                sudo docker rm tomcat_container || true
+                sudo docker run -d --name tomcat_container -p 9090:8080 311141522357.dkr.ecr.us-east-1.amazonaws.com/new-ecr:latest
+                '''
+            }
+        }
+    }
+}
     }
 }
