@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent { label 'ecr-doc' }
     environment {
         AWS_REGION = 'us-east-1' 
         ECR_REPO = '311141522357.dkr.ecr.us-east-1.amazonaws.com/new-ecr'
