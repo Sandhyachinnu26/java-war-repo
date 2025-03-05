@@ -41,11 +41,9 @@ pipeline {
                 }
             }
         }
-        pipeline {
-    agent { label 'san' }
 
-    stages {
         stage('Pull Image from ECR') {
+            agent { label 'san' }  // Running this stage on another agent
             steps {
                 sh '''
                 aws ecr get-login-password --region us-east-1 | sudo docker login --username AWS --password-stdin 311141522357.dkr.ecr.us-east-1.amazonaws.com
@@ -53,7 +51,9 @@ pipeline {
                 '''
             }
         }
+
         stage('Restart Tomcat Container') {
+            agent { label 'san' }  // Running this stage on another agent
             steps {
                 sh '''
                 sudo docker stop tomcat_container || true
@@ -63,6 +63,3 @@ pipeline {
             }
         }
     }
-}
-    }
-}
