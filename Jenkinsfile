@@ -28,15 +28,15 @@ pipeline {
             steps {
                 script {
                     sh """
-                    aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${ECR_REPO}
+                    aws ecr get-login-password --region ${AWS_REGION} | sudo docker login --username AWS --password-stdin ${ECR_REPO}
                     """
 
                     sh """
-                    docker tag new-ecr:latest ${ECR_REPO}:latest
+                    sudo docker tag new-ecr:latest ${ECR_REPO}:latest
                     """
 
                     sh """
-                    docker push ${ECR_REPO}:latest
+                    sudo docker push ${ECR_REPO}:latest
                     """
                 }
             }
