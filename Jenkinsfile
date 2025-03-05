@@ -20,7 +20,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh "docker build -t new-ecr ."
+                sh "sudo docker build -t new-ecr ."
             }
         }
 
@@ -28,15 +28,15 @@ pipeline {
             steps {
                 script {
                     sh """
-                    aws ecr get-login-password --region ${AWS_REGION} | sudo docker login --username AWS --password-stdin ${ECR_REPO}
+                    aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${ECR_REPO}
                     """
 
                     sh """
-                    sudo docker tag new-ecr:latest ${ECR_REPO}:latest
+                    docker tag new-ecr:latest ${ECR_REPO}:latest
                     """
 
                     sh """
-                    sudo docker push ${ECR_REPO}:latest
+                    docker push ${ECR_REPO}:latest
                     """
                 }
             }
