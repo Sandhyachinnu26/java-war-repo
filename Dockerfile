@@ -12,6 +12,6 @@ WORKDIR /usr/local/tomcat/webapps/
 
 COPY --from=builder /ops-app/target/*.war opskill.war
 
-EXPOSE 8080
+EXPOSE 8000
 
 CMD ["catalina.sh", "run"]
